@@ -1,28 +1,30 @@
+
 import java.util.ArrayList;
 
 /**
- * Searches a shared list of integers for a subset whose sum equals the target.
- *
- * <p>Two instances are run concurrently, each exploring a different choice for
- * the final input position. The result markers are stored in a {@code boolean[]}
- * with one entry per input value.</p>
+ * Runnable that checks combinations of array values against a target value
+ * using recursive processing across threads.
  */
 public class ThreadCheckArray implements Runnable {
-    /** Whether this worker has found a solution. */
+    /** Indicates whether a valid combination has been found. */
     private boolean flag;
-    /** Selection markers for this worker's solution. */
+
+    /** Indicates which array positions belong to a valid combination. */
     private boolean[] winArray;
-    /** State shared by both workers. */
+
+    /** Shared data used for synchronization and result storage. */
     SharedData sd;
-    /** Input values to search. */
+
+    /** Values checked by the recursive algorithm, stored as {@code ArrayList<Integer>}. */
     ArrayList<Integer> array;
-    /** Target sum to search for. */
+
+    /** Target value used by the recursive algorithm. */
     int b;
 
     /**
-     * Creates a worker using the input and target in the shared state.
+     * Creates a thread task using the supplied shared data.
      *
-     * @param sd shared input and result state
+     * @param sd shared data containing the {@code ArrayList<Integer>} and the target value
      */
     public ThreadCheckArray(SharedData sd) {
         this.sd = sd;
